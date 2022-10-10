@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} List Resume {% endblock %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <div class="container p-5 my-5 text-white">
+        <div class="row">
+            <div class="col">
+                {% if all_resumes%}
+                    <div class="row row-cols-1 row-cols-md-r g-4">
+                        {% for resume in all_resumes %}
+                            <div class="card bg-dark text-light">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center"> Download Resume</h4>
+                                    <p class="card-text">Name: {{ resume.name }}</p>
+
+                                    <div class="dropdown text-center">
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">Actions
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a href="{% url 'update_resume' resume.id %}"
+                                                   class="dropdown-item">Update</a>
+
+                                            <li><a href="{% url 'delete_resume' resume.id %}"
+                                                   class="dropdown-item">Remove</a>
+                                            </li>
+                                        </ul>
+                                        <div class="card-footer bg-transparent border-secondary">
+                                           <a href="{% static 'docs/resume.pdf' %}" download> <button class="btn"><i class="fa fa-download"></i> Download</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

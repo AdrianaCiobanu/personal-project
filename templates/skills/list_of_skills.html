@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} List of Skills {% endblock %}
+{% block content %}
+    <section class="p-5">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md">
+                    {% if all_skills %}
+                        <div class="row row-cols-2 row-cols-md-r g-4">
+                        {% for skill in all_skills %}
+                            <div class="card bg-dark text-light">
+                                <div class="card-header"><h5
+                                        class="card-title text-center text-white">{{ skill.name }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="card-text text-white">
+                                        <li> {{ skill.description }}</li>
+
+                                    </ul>
+                                    <div class="dropdown text-center">
+                                        <button class="btn btn-outline-secondary dropdown-toggle text-white"
+                                                type="button"
+                                                id="dropdownMenuButton1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">Actions
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            {% if perms.skills.view_skills %}
+                                                <li><a href="{% url 'update_skill' skill.id %}"
+                                                       class="dropdown-item">Update</a>
+                                            {% endif %}
+                                            </li>
+                                            {% if perms.skills.delete_skills %}
+                                                <li><a href="{% url 'delete_skill' skill.id %}"
+                                                       class="dropdown-item">Delete</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

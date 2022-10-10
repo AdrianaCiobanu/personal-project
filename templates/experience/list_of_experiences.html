@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} Work Experience {% endblock %}
+{% block content %} <br><br><br>
+    <section class="p-5">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md">
+                    {% if all_experiences %}
+                        <div class="row row-cols-1 row-cols-md-r g-4">
+                            {% for experience in all_experiences %}
+                                <div class="card bg-dark text-white">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-center">{{ experience.job_title }}</h5>
+                                        <p class="card-text">From {{ experience.start_date }}
+                                            until {{ experience.end_date }}</p>
+                                        <p class="card-text">Description: {{ experience.description }}</p>
+                                        <div class="dropdown text-center">
+                                            <button class="btn btn-outline-secondary dropdown-toggle text-white"
+                                                    type="button"
+                                                    id="dropdownMenuButton1"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">Actions
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                {% if perms.experience.change_experience %}
+                                                    <li><a href="{% url 'update_experience' experience.id %}"
+                                                           class="dropdown-item">Update</a>
+                                                {% endif %}
+                                                </li>
+
+                                                <li><a href="{% url 'details_experience' experience.id %}"
+                                                       class="dropdown-item">Details</a>
+                                                </li>
+                                                {% if perms.experience.delete_experience %}
+                                                    <li><a href="{% url 'delete_experience' experience.id %}"
+                                                           class="dropdown-item">Delete</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

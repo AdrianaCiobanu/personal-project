@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Add a new Skill {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card-header"><h4 class="text-center text-white"><b>Add a new skill</b></h4></div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body text-white">
+                            {{ form.as_table }}
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-success btn-lg">Save</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

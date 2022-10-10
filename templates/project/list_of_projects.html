@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} List of Projects {% endblock %}
+{% block content %}<br><br><br>
+    <section class="p-5">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md">
+                    {% if all_projects %}
+                        <div class="row row-cols-1 row-cols-md-r g-4">
+                            {% for project in all_projects %}
+                                <div class="card bg-dark text-white">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{ project.name }}</h5>
+                                        <p class="card-text">Project name: {{ project.name }}</p>
+                                        <p class="card-text">Project description: {{ project.description }}</p>
+                                        <div class="dropdown text-center">
+                                            <button class="btn btn-outline-secondary dropdown-toggle text-white"
+                                                    type="button"
+                                                    id="dropdownMenuButton1"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">Actions
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                {% if perms.project.change_project %}
+                                                    <li><a href="{% url 'update_project' project.id %}"
+                                                           class="dropdown-item">Update</a>
+                                                    </li>
+                                                {% endif %}
+                                                <li><a href="{% url 'details_project' project.id %}"
+                                                       class="dropdown-item">Details</a>
+                                                </li>
+                                                {% if perms.project.delete_project %}
+                                                    <li><a href="{% url 'delete_project' project.id %}"
+                                                           class="dropdown-item">Delete</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                            <div class="card-footer bg-transparent border-secondary"><a
+                                                    href="https://github.com/AdrianaCiobanu/">View on GitHub</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
